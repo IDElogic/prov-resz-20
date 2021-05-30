@@ -13,7 +13,7 @@ import com.xoxo.logistic.dto.TransportDto;
 
 
 @Controller
-public class AddressTlController {
+public class TransportTLController {
 	
 	private List<AddressDto> allAddresses = new ArrayList<>();
 	{
