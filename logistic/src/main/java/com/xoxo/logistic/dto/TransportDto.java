@@ -1,12 +1,29 @@
 package com.xoxo.logistic.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TransportDto {
 	
-	public TransportDto(long id, String section, double price) {
+	public TransportDto(long id, double price, List<SectionDto> sections) {
 		super();
 		this.id = id;
-		this.section = section;
 		this.price = price;
+		this.sections = sections;
+	}
+	private long id;
+	private double price;
+	List<SectionDto> sections = new ArrayList<>();
+	
+	public TransportDto() {
+		
+	}
+	
+	public List<SectionDto> getSections() {
+		return sections;
+	}
+	public void setSections(List<SectionDto> sections) {
+		this.sections = sections;
 	}
 	public long getId() {
 		return id;
@@ -14,24 +31,15 @@ public class TransportDto {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getSection() {
-		return section;
-	}
-	public void setSection(String section) {
-		this.section = section;
-	}
+	
 	public double getPrice() {
 		return price;
 	}
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	public TransportDto() {
-		
-	}
+	
 
-	private long id;
-	private String section;
-	private double price;
+	
 
 }

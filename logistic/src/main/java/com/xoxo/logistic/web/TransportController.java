@@ -2,9 +2,11 @@ package com.xoxo.logistic.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,57 +16,137 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
-import com.xoxo.logistic.dto.AddressDto;
+import com.xoxo.logistic.dto.SectionDto;
+import com.xoxo.logistic.dto.TransportDto;
 
 @RestController
-@RequestMapping("/api/addresses")
+@RequestMapping("/api/transports")
 public class TransportController {
 	
-	private Map<Long, AddressDto> addresses = new HashMap<>();
+	private Map<Long, TransportDto> transports = new HashMap<>();
 	
 	{
-		addresses.put(1L, new AddressDto(1,"SE","Malmö","Nordenskiöldsgatan", 20506L,1L, 0.0, 0.0));
-		addresses.put(2L, new AddressDto(2,"SE","Borås","Sturegatan", 40301L,1L, 0.0, 0.0));
+		transports.put(1L, new TransportDto(1,100.0, null));
+		transports.put(2L, new TransportDto(2,200.0, null));
 	}
 	
 	@GetMapping 
-	public List<AddressDto> getAll(){
-		return new ArrayList<>(addresses.values());
+	public List<TransportDto> getAll(){
+		return new ArrayList<>(transports.values());
 	}
 	
-	/*egy address-t ad vissza id-alapjan*/
+	/*egy transport-ot ad vissza id-alapjan*/
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<AddressDto> getById(@PathVariable long id) {
-		AddressDto addressDto = addresses.get(id);
-		if(addressDto != null)
-			return ResponseEntity.ok(addressDto);
-		else
-			return ResponseEntity.notFound().build();	
+	public TransportDto getById(@PathVariable long id) {
+		return FindByIdOrThrow(id);
 	}	
+//	@GetMapping("/{id}")
+//	public ResponseEntity<TransportDto> getById(@PathVariable long id) {
+//		TransportDto transportDto = transports.get(id);
+//		if(transportDto != null)
+//			return ResponseEntity.ok(transportDto);
+//		else
+//			return ResponseEntity.notFound().build();	
+//	}	
 	
 	@PostMapping
-	public AddressDto createAddress(@RequestBody AddressDto addressDto) {
-		addresses.put(addressDto.getId(),addressDto);
-		return addressDto;
+	public TransportDto createTransport(@RequestBody TransportDto transportDto) {
+		transports.put(transportDto.getId(),transportDto);
+		return transportDto;
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<AddressDto> modifyAddress(@PathVariable long id, @RequestBody AddressDto addressDto) {
-		if(!addresses.containsKey(id)) {
+	public ResponseEntity<TransportDto> modifyTransport(@PathVariable long id, @RequestBody TransportDto transportDto) {
+		if(!transports.containsKey(id)) {
 			return ResponseEntity.notFound().build();
 		}
-		addressDto.setId(id);
-		addresses.put(id, addressDto);
-		return ResponseEntity.ok(addressDto);				
+		transportDto.setId(id);
+		transports.put(id, transportDto);
+		return ResponseEntity.ok(transportDto);				
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteAddress(@PathVariable long id) {
-		addresses.remove(id);
-	}	
+	public void deleteTransport(@PathVariable long id) {
+		transports.remove(id);
+	}
+	
+	@PostMapping("/{id}/sections")
+	public TransportDto addNewSection(@PathVariable long id, @RequestBody SectionDto sectionDto) {
+		TransportDto transportDto =  findByIdOrThrow(id);
+		transportDto.getSections().add(sectionDto);
+			return transportDto;		
+	}
+	
+	private TransportDto findByIdOrThrow(long id) {		
+			return null;
+		}
+
+//	@PostMapping("/{id}/sections")
+//	public ResponseEntity<TransportDto> addNewSection(@PathVariable long id, @RequestBody SectionDto sectionDto) {
+//		TransportDto transportDto = transports.get(id);
+//		if(transportDto == null)			
+//			return ResponseEntity.notFound().build();
+//		transportDto.getSections().add(sectionDto);
+//			return ResponseEntity.ok(transportDto);		
+//	}
+	
+	@DeleteMapping("/{id}/sections/{sectionId}")
+	public TransportDto addNewSection(@PathVariable long id,@PathVariable long sectionId) {
+		TransportDto transportDto =  findByIdOrThrow(id);
+		for(Iterator<SectionDto> iterator = transportDto.getSections().iterator();
+				iterator.hasNext();){
+			SectionDto section = iterator.next();
+			if(section.getId()== sectionId) {
+				iterator.remove();
+				break;
+				}			
+		}
+		return transportDto;
+	}
+	
+//	@DeleteMapping("/{id}/sections/{sectionId}")
+//	public ResponseEntity<TransportDto> addNewSection(@PathVariable long id,@PathVariable long sectionId) {
+//		TransportDto transportDto = transports.get(id);
+//		if(transportDto == null)			
+//			return ResponseEntity.notFound().build();
+//		for(Iterator<SectionDto> iterator = transportDto.getSections().iterator();
+//				iterator.hasNext();){
+//			SectionDto section = iterator.next();
+//			if(section.getId()== sectionId) {
+//				iterator.remove();
+//				break;
+//				}			
+//		}
+//		return ResponseEntity.ok(transportDto);
+//	}
+	
+	@PutMapping("/{id}/sections")
+	public TransportDto replaceSections(@PathVariable long id, @RequestBody List<SectionDto> sections) {
+		TransportDto transportDto =  findByIdOrThrow(id);
+		transportDto.setSections(sections);
+			return transportDto;		
+	}
+	
+	
+	public TransportDto FindByIdOrThrow(long id) {
+		TransportDto transportDto = transports.get(id);
+		if(transportDto == null)			
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		return transportDto;
+	}
 }
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,0 +1,22 @@
+body {
+  background: #C9CCC3;
+  color: #e0e8f8;
+  font-family: "Montserrat", sans-serif;
+}
+
+h1 {
+  font-family: "Montserrat", sans-serif;
+  font-weight:lighter;
+  margin: 20px 0 20px 0;
+  padding:20px;
+  color: #78ab46;
+}
+
+.error-message {
+    color: #a94442;
+}
+
+.error-message:first-letter {
+    text-transform: capitalize;
+}
+
