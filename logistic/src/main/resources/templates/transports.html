@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Transport application</title>
+</head>
+<body>
+	<h1>Transport Plan</h1>
+			<ul>
+				<li th:each="transport :${transports}">
+				<span th:text="${transport.id}" >id</span>
+				<span th:text="${transport.section}" >section</span>
+				<span th:text="${transport.price}" >price</span>
+				</li>	
+			</ul>
+			
+	<form th:action="@{/transports}" method="post" th:object="${newTransport}">
+			Id: <input th:field="*{id}" /> <br/><br/>
+			Section: <input th:field="*{section}" /> <br/><br/>
+			Price: <input th:field="*{price}" /> <br/><br/>		
+			<input type="submit" value="Add" />
+	</form>
+	
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Transport application</title>
+</head>
+<body>
+	<h1>List of Addresses</h1>
+			<ul>
+				<li th:each="address :${addresses}">
+				<span th:text="${address.id}" >id</span>
+				<span th:text="${address.countryCode}" >countryCode</span>
+				<span th:text="${address.city}" >city</span>
+				<span th:text="${address.streetAddress}" >streetAddress</span>
+				<span th:text="${address.postalCode}" >postalCode</span>
+				<span th:text="${address.houseNumber}" >houseNumber</span>
+				<span th:text="${address.lat}" >lat</span>
+				<span th:text="${address.lng}" >lng</span>	
+				</li>	
+			</ul>
+			
+	<form th:action="@{/addresses}" method="post" th:object="${newAddress}">
+			Id: <input th:field="*{id}" /> <br/><br/>
+			CountryCode: <input th:field="*{countryCode}" /> <br/><br/>
+			City: <input th:field="*{city}" /> <br/><br/>
+			StreetAddress: <input th:field="*{streetAddress}" /> <br/><br/>
+			PostalCode: <input th:field="*{postalCode}" /> <br/><br/>
+			HouseNumber: <input th:field="*{houseNumber}" /> <br/><br/>
+			Lat: <input th:field="*{lat}" /> <br/><br/>
+			Lng: <input th:field="*{Lng}" /> <br/><br/>
+			<input type="submit" value="Add" />
+	</form>
+	
+</body>
+</html>
