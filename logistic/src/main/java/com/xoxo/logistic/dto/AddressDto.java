@@ -2,9 +2,7 @@ package com.xoxo.logistic.dto;
 
 public class AddressDto {
 	
-	public AddressDto() {	
-	}
-	
+
 	private long id;
 	private String countryCode;
 	private String city;
@@ -26,6 +24,7 @@ public class AddressDto {
 		this.lat = lat;
 		this.lng = lng;
 	}
+	
 	public long getId() {
 		return id;
 	}

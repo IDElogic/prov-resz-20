@@ -37,21 +37,11 @@ public class TransportController {
 		return new ArrayList<>(transports.values());
 	}
 	
-	/*egy transport-ot ad vissza id-alapjan*/
-	
 	@GetMapping("/{id}")
 	public TransportDto getById(@PathVariable long id) {
 		return FindByIdOrThrow(id);
 	}	
-//	@GetMapping("/{id}")
-//	public ResponseEntity<TransportDto> getById(@PathVariable long id) {
-//		TransportDto transportDto = transports.get(id);
-//		if(transportDto != null)
-//			return ResponseEntity.ok(transportDto);
-//		else
-//			return ResponseEntity.notFound().build();	
-//	}	
-	
+		
 	@PostMapping
 	public TransportDto createTransport(@RequestBody TransportDto transportDto) {
 		transports.put(transportDto.getId(),transportDto);
@@ -82,16 +72,7 @@ public class TransportController {
 	
 	private TransportDto findByIdOrThrow(long id) {		
 			return null;
-		}
-
-//	@PostMapping("/{id}/sections")
-//	public ResponseEntity<TransportDto> addNewSection(@PathVariable long id, @RequestBody SectionDto sectionDto) {
-//		TransportDto transportDto = transports.get(id);
-//		if(transportDto == null)			
-//			return ResponseEntity.notFound().build();
-//		transportDto.getSections().add(sectionDto);
-//			return ResponseEntity.ok(transportDto);		
-//	}
+	}
 	
 	@DeleteMapping("/{id}/sections/{sectionId}")
 	public TransportDto addNewSection(@PathVariable long id,@PathVariable long sectionId) {
@@ -107,30 +88,13 @@ public class TransportController {
 		return transportDto;
 	}
 	
-//	@DeleteMapping("/{id}/sections/{sectionId}")
-//	public ResponseEntity<TransportDto> addNewSection(@PathVariable long id,@PathVariable long sectionId) {
-//		TransportDto transportDto = transports.get(id);
-//		if(transportDto == null)			
-//			return ResponseEntity.notFound().build();
-//		for(Iterator<SectionDto> iterator = transportDto.getSections().iterator();
-//				iterator.hasNext();){
-//			SectionDto section = iterator.next();
-//			if(section.getId()== sectionId) {
-//				iterator.remove();
-//				break;
-//				}			
-//		}
-//		return ResponseEntity.ok(transportDto);
-//	}
-	
 	@PutMapping("/{id}/sections")
 	public TransportDto replaceSections(@PathVariable long id, @RequestBody List<SectionDto> sections) {
 		TransportDto transportDto =  findByIdOrThrow(id);
 		transportDto.setSections(sections);
 			return transportDto;		
 	}
-	
-	
+		
 	public TransportDto FindByIdOrThrow(long id) {
 		TransportDto transportDto = transports.get(id);
 		if(transportDto == null)			

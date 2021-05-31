@@ -1,25 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8">
-<title>Transport application</title>
+<meta charset="UTF-8">
+<title>Logistics application</title>
 </head>
 <body>
-	<h1>Transport Plan</h1>
-			<ul>
-				<li th:each="transport :${transports}">
-				<span th:text="${transport.id}" >id</span>
-				<span th:text="${transport.section}" >section</span>
-				<span th:text="${transport.price}" >price</span>
-				</li>	
-			</ul>
-			
-	<form th:action="@{/transports}" method="post" th:object="${newTransport}">
-			Id: <input th:field="*{id}" /> <br/><br/>
-			Section: <input th:field="*{section}" /> <br/><br/>
-			Price: <input th:field="*{price}" /> <br/><br/>		
-			<input type="submit" value="Add" />
+
+	<h1>Edit Address:</h1>
+
+	<form th:action="@{/updateAddress}" method="post" th:object="${address}">
+		Id: <span th:text="*{id}" > </span><br>
+		<input th:field="*{id}" type="hidden" />
+		Country: <input th:field="*{country}" /><br>
+		City: <input th:field="*{city}" /><br>
+		Street: <input th:field="*{Street}" /><br>
+		<input type="submit" value="Save" />
 	</form>
-	
+
 </body>
 </html>

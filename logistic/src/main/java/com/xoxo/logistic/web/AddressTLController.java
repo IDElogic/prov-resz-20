@@ -12,14 +12,13 @@ import com.xoxo.logistic.dto.AddressDto;
 
 
 @Controller
-public class TransportTLController {
+public class AddressTLController {
 	
 	private List<AddressDto> allAddresses = new ArrayList<>();
 	{
 		allAddresses.add(new AddressDto(1L,"SE","Malmö","Nordenskiöldsgatan", 20506L,1L, 0.0, 0.0));
 	}
-		
-	
+			
 	@GetMapping("/")
 	public String home() {
 		return "index";
@@ -28,7 +27,7 @@ public class TransportTLController {
 	@GetMapping("/addresses")
 	public String listAddress(Map<String, Object> model) {
 		model.put("addresses", allAddresses);
-		model.put("newAddress",new AddressDto());
+		model.put("newAddress",new AddressDto(0, null, null, null, 0, 0, 0, 0));
 		return "addresses";
 	}
 	
