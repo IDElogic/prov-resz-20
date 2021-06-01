@@ -12,7 +12,7 @@ public class PriceService {
 	}
 
 	public int getFinalPrice(int price) {
-		return (int) (price / 100.0 * (100 - discountService.getDiscountPercent(price)));
+		return (int) (price / 100.0 * (100 + discountService.getDiscountPercent(price)));
 	}
 
 }
