@@ -2,19 +2,46 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Logistics application</title>
+<title>HR application</title>
 </head>
 <body>
 
-	<h1>Edit Address:</h1>
+	<h1>List of transports:</h1>
 
-	<form th:action="@{/updateAddress}" method="post" th:object="${address}">
-		Id: <span th:text="*{id}" > </span><br>
-		<input th:field="*{id}" type="hidden" />
-		Country: <input th:field="*{country}" /><br>
-		City: <input th:field="*{city}" /><br>
-		Street: <input th:field="*{Street}" /><br>
-		<input type="submit" value="Save" />
+	<table border>
+		<tr>
+			<th>Id</th>
+			<th>Price</th>
+			<th>Section</th>
+			<th>PlannedTime</th
+		</tr>
+		
+		<td th:text="${employee.id}">Id</td>
+			<td><a th:href="@{/employees/{id}(id = ${employee.id})}" th:text="${employee.name}">Name</a></td>
+			<td th:text="${employee.title}">Title</td>
+			<td th:text="${employee.salary}">Salary</td>
+			<td th:text="${employee.salary}">EntryDate</td>
+			<td><a th:href="@{/deleteEmployee/{id}(id=${employee.id})}">Delete</a></td>
+		
+		
+		
+		<tr th:each="transport : ${transports}">
+			<td th:text="${transport.id}">Id</td>
+			<td><th:text="${transport.section}">Section</td>
+			<td th:text="${transport.plannedTime}">PlannedTime</td>
+			<td><a th:href="@{/delete.transport/{id}(id=${transport.id})}">Delete</a></td>
+		</tr>
+	</table>
+	<br>
+	<br>
+
+	<form th:action="@{/transports}" method="post"
+		th:object="${newTransport}">
+		Id: <input th:field="*{id}" /><br> 
+		Price: <input th:field="*{price}" /><br>
+		Section: <input th:field="*{Section}" /><br> 
+		PllanedTime: <input th:field="*{plannedTime}" /><br> 
+		<input type="submit" value="Add" />
 	</form>
 
 </body>

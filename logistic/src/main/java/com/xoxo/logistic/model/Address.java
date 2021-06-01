@@ -1,16 +1,23 @@
-package com.xoxo.logistic.dto;
+package com.xoxo.logistic.model;
 
-public class AddressDto {
+public class Address {
 	
-	public String getCity() {
-		return city;
+	public Address() {
+		
 	}
-
-	public void setCity(String city) {
+	
+	public Address(long id, String countryCode, String city, String streetAddress, long postalCode, long houseNumber,
+			double lat, double lng) {
+		super();
+		this.id = id;
+		this.countryCode = countryCode;
 		this.city = city;
+		this.streetAddress = streetAddress;
+		this.postalCode = postalCode;
+		this.houseNumber = houseNumber;
+		this.lat = lat;
+		this.lng = lng;
 	}
-	
-	
 	private long id;
 	
 	private String countryCode;
@@ -27,16 +34,12 @@ public class AddressDto {
 	
 	private double lng;
 	
-	public AddressDto(long id, String countryCode, String city, String streetAddress, long postalCode, long houseNumber,
-			double lat, double lng) {
-		this.id = id;
-		this.countryCode = countryCode;
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
 		this.city = city;
-		this.streetAddress = streetAddress;
-		this.postalCode = postalCode;
-		this.houseNumber = houseNumber;
-		this.lat = lat;
-		this.lng = lng;
 	}
 	
 	public long getId() {
@@ -83,6 +86,7 @@ public class AddressDto {
 		this.lng = lng;
 	}
 
+	
 	
 	
 	

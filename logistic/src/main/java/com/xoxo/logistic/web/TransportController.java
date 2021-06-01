@@ -37,10 +37,19 @@ public class TransportController {
 		return new ArrayList<>(transports.values());
 	}
 	
+//	@GetMapping("/{id}")
+//	public TransportDto getById(@PathVariable long id) {
+//		return FindByIdOrThrow(id);
+//	}
+	
 	@GetMapping("/{id}")
 	public TransportDto getById(@PathVariable long id) {
-		return FindByIdOrThrow(id);
-	}	
+	        TransportDto transportDto = transports.get(id);
+	        if(transportDto != null)
+	        	return transportDto;
+	        else
+	        	throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+	        	}
 		
 	@PostMapping
 	public TransportDto createTransport(@RequestBody TransportDto transportDto) {
